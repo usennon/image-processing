@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Image Color Extract</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <div class="">
+        <img class="img" src="/static/images/{{ imgname }}">
+    </div>
+    <form action="{{ url_for('main') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*">
+        <input type="number" name="num" value="3" placeholder="Type number of colors">
+        <input type="submit" value="Run">
+    </form>
+    {% if not colors %}
+     <h3>There will be a colors-table.</h3>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Color</th>
+                <th>Color code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for color in colors %}
+                <tr>
+                    <td style="background-color: {{ color }}"></td>
+                    <td>{{ color }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+</html>
